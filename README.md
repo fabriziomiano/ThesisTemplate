@@ -1,2 +1,2 @@
 # ThesisTemplate
-*UNOFFICIAL* Sussex Uni Thesis Template
+a PhD Thesis Template inspired by many other templates on the market
