@@ -1,84 +1,71 @@
 %---------------------------------------------------
-% University of Sussex thesis template
-% Last Edit by Fabrizio Miano, Oct 2017
+% PhD thesis template by Fabrizio Miano, 
+% Last edit March 2018. 
 %---------------------------------------------------
-
-%---------------------------------------------------
-%\RequirePackage[l2tabu,orthodox]{nag} 
-%\RequirePackage{palatino} % Change Font
-%\RequirePackage{lmodern}
-%---------------------------------------------------
-\documentclass[a4paper,11pt,oneside]{book}
-\usepackage{booktabs}
-\usepackage{hepunits}
+\documentclass[a4paper,11pt,oneside]{memoir} % 
+\setcounter{tocdepth}{3} % Depth of sections to include in the table of contents - currently up to subsections 
+\setsecnumdepth{subsection}% % Depth of sections to number in the text itself - currently up to subsections
+\captionnamefont{\footnotesize} % Size of caption text
+\captiontitlefont{\footnotesize} % Size of caption title
+\hangcaption % indent caption
+\newsubfloat{figure} % Allow subfloats in figure environment
+\usepackage[british]{babel}
+\usepackage[utf8]{inputenc} 
+\usepackage{fourier} % font
+\usepackage[T1]{fontenc} 
 \usepackage{physics}
 \usepackage{enumerate}
 \usepackage{epigraph}
+\usepackage[printonlyused]{acronym}
 \usepackage{placeins}
 \usepackage[hang]{footmisc}
-\usepackage[font=footnotesize,hang]{caption} % footnotes
+\usepackage{tablefootnote}
 \usepackage{multicol} % multicolumn text
 \usepackage{wrapfig} % figures wrapped in text
 \usepackage{booktabs} % lines for tables
 \usepackage{lineno} % Line Numbers 
-\usepackage{subfig}  % pictures and sub-pictures
-\usepackage[]{fncychap} % header style - Options: Sonny, Glenn, Bjornstrup
-\usepackage[utf8]{inputenc} 
-%\usepackage[math]{iwona}
-\usepackage{tgpagella}
-\usepackage[T1]{fontenc} 
-\setcounter{secnumdepth}{4}
-\usepackage{titlesec, blindtext, color}
-\definecolor{gray75}{gray}{0.75}
-\newcommand{\hsp}{\hspace{20pt}}
-
-% \renewcommand{\epigraphrule}{0pt}
-% \setlength{\epigraphwidth}{.6\textwidth}
-% \renewcommand{\textflush}{flushepinormal}
+%---------------------------------------------------
+% OTHER FORMATTING/LAYOUT DECLARATIONS
+%---------------------------------------------------
+\usepackage{titlesec, color, xcolor, calc, blindtext}
+\usepackage{feynmp}
+\usepackage[pdftex]{graphicx}
+\usepackage{amsmath}
+\usepackage{commath}
+\usepackage{amssymb}
+\usepackage{multirow}
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usepackage{cancel}
+\usetikzlibrary{decorations.markings,calc,shapes,arrows}
 %---------------------------------------------------
 % LINE SPACING AND FOOTNOTE MARGIN
 %---------------------------------------------------
-\newcommand{\linespacing}{1.5}
+\newcommand{\linespacing}{1.25}
 \renewcommand{\baselinestretch}{\linespacing}
-
-%\renewcommand{\epigraphrule}{0pt}
-%\setlength{\epigraphwidth}{.6\textwidth}
-%\renewcommand{\textflush}{flushepinormal}
-
-\setlength{\footnotemargin}{2mm}
-
-  % \let\tmp@footnotetext=\@footnotetext 
-  % \renewcommand{\@footnotetext}[1]% 
-  %     {{\singlespace\tmp@footnotetext{#1}}} 
-
-  % \let\tmpepigraph=\epigraph 
-  % \renewcommand{\epigraph}[2]% 
-  %     {{\singlespace\tmpepigraph{#1}{#2}}} 
-
+\setlength{\footnotemargin}{3mm}
 %---------------------------------------------------
 % BIBLIOGRAPHY STYLE
 %---------------------------------------------------
-\bibliographystyle{plain}
-
+\bibliographystyle{latex/atlasBibStyleWithTitle}
 %---------------------------------------------------
 %   DOCUMENT VARIABLES
 %   Fill in the lines below to enter your information into the thesis template
 %   Each of the commands can be cited anywhere in the thesis
 %---------------------------------------------------
 \newcommand{\myTitle}{Thesis Title}
-\newcommand{\mySubtitle}{NO SUBTITLE\xspace}
+\newcommand{\mySubtitle}{Thesis Subtitle\xspace} % if any
 \newcommand{\myDegree}{Doctor of Philosophy \xspace}
-\newcommand{\myName}{My \textsc{Name}\xspace}
-\newcommand{\myProf}{Dr. Ernest \textsc{Rutherford}\xspace}
-\newcommand{\myOtherProf}{Prof. Marie \textsc{Curie}\xspace}
-\newcommand{\mySupervisor}{Dr. Albert \textsc{Einstein}\xspace}
-\newcommand{\myDepartment}{\href{http://www.sussex.ac.uk/epp/}{Experimental Particle Physics Research Group\xspace}}
-\newcommand{\myFaculty}{\href{http://www.sussex.ac.uk/mps/}{School of Mathematical and Physical Sciences\xspace}}
+\newcommand{\myName}{Name \textsc{Surname}\xspace}
+\newcommand{\myProf}{Prof. Tal \textsc{Dei Tali}\xspace}
+\newcommand{\myOtherProf}{Prof. Barzotti \textsc{Pompeski}\xspace}
+\newcommand{\mySupervisor}{Dr. Tarapie \textsc{Tapiota}\xspace}
+\newcommand{\myDepartment}{Department of Sbadgioff\xspace}
+\newcommand{\myFaculty}{School of Poppete and Bi-poppete\xspace}
 \newcommand{\myUni}{University of Sussex\xspace}
 \newcommand{\myLocation}{Brighton\xspace}
 \newcommand{\myTime}{\today\xspace}
 \newcommand{\myVersion}{version 1.0\xspace}
-
 %---------------------------------------------------
 % USEFUL COMMANDS
 %---------------------------------------------------
@@ -86,165 +73,178 @@
 \newcommand{\Ie}{I.\,e.}
 \newcommand{\eg}{e.\,g.}
 \newcommand{\Eg}{E.\,g.}
-\newcommand{\Width}{1.5}
-\newcommand{\Height}{2.5}
-%\newcommand{\DeltaX}{5}
-\newcommand{\NumberOfVerticalLines}{4}
-\newcommand*{\Rectangle}[4][]{%
-    % #1 = draw/fill options
-    % #2 = width
-    % #3 = height
-    % #4 = number of vertical lines
-    \draw [#1] (0,0) rectangle (#2,#3);
-    \pgfmathsetmacro{\DeltaX}{#2/#4}%
-    \foreach \x in {1,...,#4} {
-        \pgfmathsetmacro{\NewX}{\DeltaX*\x}
-        \draw ($(0,0)+(\NewX,0)$) -- ($(0,0)+(\NewX,#3)$);
-    }
-}
-
 %---------------------------------------------------
-% OTHER FORMATTING/LAYOUT DECLARATIONS
-%---------------------------------------------------
-% Graphics
-\usepackage{color}
-\usepackage{feynmp}
-\usepackage[pdftex]{graphicx}
-%\renewcommand{\includegraphics}[2][]{\fbox{}}
-\DeclareGraphicsRule{*}{mps}{*}{} 
-\usepackage{pgfplots}
-\pgfplotsset{compat=1.14}
-\usepackage{amsmath}
-\usepackage{commath}
-\usepackage{amssymb}
-\usepackage[british]{babel}
-\usepackage{multirow}
-\usepackage{tikz}
-\usepackage{tikz-3dplot}
-\usepackage{cancel}
-\usetikzlibrary{decorations.markings,calc,shapes,arrows}
-
-%---------------------------------------------------
-% MARGINS AND CHAPTER HEADER
+% MARGINS - CHANGE THESE ACCORDING TO YOUR UNIVERSITY RULES, IF ANY
 %---------------------------------------------------
 % The left-hand-side should be 40mm.  The top and bottom margins should be
 % 25mm deep.  The right hand margin should be 20mm.
 \usepackage[a4paper,top=2.5cm,bottom=2.5cm,left=4cm,right=2cm,headsep=10pt]{geometry}
+
+%---------------------------------------------------
+% MEMOIR CLASS SETTINGS AND CHAPTER HEADER/STYLE
+%---------------------------------------------------
+\definecolor{chaptercolor}{gray}{0.35}
+% helper macros
+\newcommand\numlifter[1]{\raisebox{-3cm}[0pt][0pt]{\smash{#1}}}
+\newcommand\numindent{\kern5pt}
+\newlength\chaptertitleboxheight
+\makechapterstyle{hansen}{
+  \renewcommand\printchaptername{\raggedleft}
+  \renewcommand\printchapternum{%
+    \begingroup%
+      \leavevmode%
+      \chapnumfont%
+      \strut%
+      \numlifter{\thechapter\hrulefill}%
+      \numindent%
+    \endgroup%
+  }
+  \renewcommand*{\printchapternonum}{%
+    \vphantom{
+    \begingroup%
+      \leavevmode%
+      \chapnumfont%
+      \numlifter{\vphantom{9}}%
+      \numindent%
+    \endgroup}
+    \afterchapternum
+  }
+  \setlength\midchapskip{0pt}
+  \setlength\beforechapskip{\baselineskip}
+  \setlength{\afterchapskip}{4\baselineskip}
+  \renewcommand\chapnumfont{%
+    \fontsize{5cm}{0cm}%
+    \bfseries% or 
+    \itshape
+    %\sffamily%
+    \color{chaptercolor}%
+  }
+  \renewcommand\chaptitlefont{%
+    \normalfont%
+    \Huge%
+    \bfseries%
+    \scshape
+    \raggedright%
+  }%
+  \settototalheight\chaptertitleboxheight{%
+    \parbox{\textwidth}{\chaptitlefont \strut bg\\bg\strut}
+  }
+  \renewcommand\printchaptertitle[1]{
+    \raggedright\parbox[t][\chaptertitleboxheight][t]{.7\textwidth}{%
+      \chaptitlefont\strut ##1  \strut
+    }%
+  }
+}
+
+
+% --------------------------------------------------
+% Set page style
+% --------------------------------------------------
+\renewcommand{\sectionmark}[1]{\markright{{\itshape\thesection\ #1}}} % with number of section 
+\makepagestyle{custom}% Create custom page style
+\makeoddhead{custom}% Adjust odd header for custom page style
+{\rightmark}% Left odd header
+{}% Center odd header
+{\thepage}% Right odd header
+\makeheadrule{custom}{\textwidth}{.5pt}% Header rule width/thickness for custom page style
+\aliaspagestyle{chapter}{custom} % just to save some space
+% change these if you want to put the page number somewhere else
+\copypagestyle{chapter}{plain}
+\makeoddhead{chapter}{}{}{\thepage}
+\makeoddfoot{chapter}{}{}{}
+
+% --------------------------------------------------
+% Remove some warnings 
+% --------------------------------------------------
+\setlength{\headheight}{14pt} % to avoid multiple "\headheight is too small" warnings 
+\setlength{\parskip}{5pt} % to have some space between paragraphs
+\pdfminorversion=6  % to avoid warnings like "PDF inclusion: found PDF version <1.6>, but at most version <1.5> allowed"  
+
+% --------------------------------------------------
+% Uncomment for DIGITAL version
+% --------------------------------------------------
+\usepackage[pdftex,                          % Settings for PDF Metadata
+            pdfauthor={Name Surname},
+            pdftitle={\myTitle},
+            pdfsubject={PhD Thesis},
+            pdfkeywords={Whatever suits most},
+            pdfproducer={LaTeX},
+            pdfcreator={pdflatex},
+            colorlinks, pagebackref, pdfusetitle,            %Default Settings; original sussex template
+            urlcolor=blue, citecolor=blue, linkcolor=blue,
+            bookmarksnumbered, plainpages=false]{hyperref}
+% --------------------------------------------------
+% Uncomment for PRINTED version
+% --------------------------------------------------
+% \usepackage[pdftex,
+%             pdfauthor={Name Surname},
+%             pdftitle={\myTitle},
+%             pdfsubject={PhD Thesis},
+%             pdfkeywords={Whatever},
+%             pdfproducer={LaTeX},
+%             pdfcreator={pdflatex},
+%             pdfusetitle, bookmarksnumbered, plainpages=false]{hyperref}
+% --------------------------------------------------
+
+\graphicspath{{./figures/}} % directory with all the pictures
 \flushbottom
-\usepackage{fancyhdr}
-% Pages should be numbered consecutively thorugh the main text.  Page numbers
-% should be located centrally at the top of the page.
-\pagestyle{fancy}
-    \fancyhf{} 
-    \renewcommand{\sectionmark}[1]{\markright{\footnotesize{\textit{{\thesection\ #1}}}}}
-    \lhead{}
-    \rhead{\nouppercase{\rightmark}}
-    \chead{\thepage}
-    \cfoot{}
-    \lfoot{}
-    \rfoot{}
-    \renewcommand{\headrulewidth}{0.5pt}
-    \renewcommand{\footrulewidth}{0.5pt}
-
-% Even the first page of the chapter
-\fancypagestyle{plain}{% % <-- this is new
-    \fancyhf{} 
-    %\rhead{\nouppercase{\rightmark}}
-    \chead{\thepage}
-    %\fancyfoot[LE,RO]{\thepage} % same placement as with page style "fancy"
-    \renewcommand{\headrulewidth}{0pt}
-    \renewcommand{\footrulewidth}{0pt}
-    }
-
-% Chapters header 
-\titleformat{\chapter}[hang]
-    {\Huge\bfseries} {\textcolor{red} \thechapter \hsp \textcolor{gray75} {|} \hsp} {0pt} {\Huge\bfseries}
-
-
-%---------------------------------------------------
-% HYPERREF
-%---------------------------------------------------
-\usepackage[colorlinks,pagebackref,pdfusetitle,
-            urlcolor=blue,citecolor=blue,linkcolor=blue,
-            bookmarksnumbered,plainpages=false]{hyperref}
-% For print version, use this instead:
-%\usepackage[pdfusetitle,bookmarksnumbered,plainpages=false]{hyperref}
-%\usepackage{backref}
-%\renewcommand{\backrefpagesname}{Cited on}
-%---------------------------------------------------
-
-\raggedbottom
-
-%Check for unreferenced figures
-%\usepackage{refcheck}
-\graphicspath{{./figures/}}
-
-
 %---------------------------------------------------
 % BEGIN DOCUMENT
 %---------------------------------------------------
 \begin{document}
-    %---------------------------------------------------
-    % Line numbers
-    %---------------------------------------------------
-    \linenumbers
-
-    %---------------------------------------------------
-    % PREAMBLE: roman page numbering i, ii, iii, ...
-    %---------------------------------------------------
+  %---------------------------------------------------
+  % PREAMBLE: roman page numbering i, ii, iii, ...
+  %---------------------------------------------------
+  \pagestyle{custom}% Set page style to custom
+  \chapterstyle{hansen} % Set chapter style
+  \begingroup
     \frontmatter
     \pagenumbering{roman}
-
-    \include{FrontBackMatter/Titlepage}
+    \include{FrontBackMatter/Titlepage} 
     \include{FrontBackMatter/Dedication} % Dedication page
     \include{FrontBackMatter/Acknowledgments} % Acknowledgements page
     \include{FrontBackMatter/Declaration} % Declaration
     \include{FrontBackMatter/Abstract} % Abstract page
-
-    %---------------------------------------------------
-    % TABLE OF CONTENTS, LISTS OF TABLES & FIGURES
-    %---------------------------------------------------
-    \newpage
+  \endgroup
+  %---------------------------------------------------
+  % TABLE OF CONTENTS, LISTS OF TABLES & FIGURES
+  %---------------------------------------------------
+  \begingroup
+    \newpage  
+    \setlength{\parskip}{0pt} % To restore distance between Chapters, sections and subsections in the table of contents
     \pdfbookmark[0]{Contents}{contents_bookmark}
-    \tableofcontents
-    \listoftables
-    \phantomsection
-    %\addcontentsline{toc}{chapter}{List of Tables}
-    \listoffigures
-    \phantomsection
-    %\addcontentsline{toc}{chapter}{List of Figures}
+    \pagestyle{custom}% Set page style to custom
+    \chapterstyle{hansen} % Set chapter style
+    \tableofcontents*  % as per in memoir class 
+  \endgroup
 
-    %---------------------------------------------------
-    % MAIN THESIS TEXT: arabic page numbering 1, 2, 3, ...
-    %---------------------------------------------------
-    \newpage
-    \pagenumbering{arabic}
+  %---------------------------------------------------
+  % MAIN THESIS TEXT: arabic page numbering 1, 2, 3, ...
+  % THESIS CONTENT - CHAPTERS
+  %---------------------------------------------------
+  \mainmatter
+  \pagenumbering{arabic}
+  \input{Chapters/chapter1}
+  \input{Chapters/chapter2}
+  
+  %---------------------------------------------------
+  % APPENDICES
+  %---------------------------------------------------
+  \appendix
+      \input{Chapters/appA.tex}
+  \backmatter
+      \input{FrontBackMatter/Acronyms.tex}
 
-    %---------------------------------------------------
-    % THESIS CONTENT - CHAPTERS
-    %---------------------------------------------------
-    \mainmatter
-    \input{Chapters/chapter1}
-    \input{Chapters/chapter2}
+  %---------------------------------------------------
+  % BIBLIOGRAPHY
+  %---------------------------------------------------
+  \clearpage
+  \phantomsection
+  %\addcontentsline{toc}{chapter}{Bibliography} % unnecessary with this new template
+  \bibliography{Chapters/bibliography}
+  \newpage\input{FrontBackMatter/Colophon}
 
-    %---------------------------------------------------
-    % THESIS CONTENT - APPENDICES
-    %---------------------------------------------------
-    \backmatter
-    \appendix
-    \input{Chapters/appA.tex}
-
-
-    %---------------------------------------------------
-    % BIBLIOGRAPHY
-    %---------------------------------------------------
-    \clearpage
-    \phantomsection
-    \addcontentsline{toc}{chapter}{Bibliography}
-    \bibliography{Chapters/Bibliography}
-
-%---------------------------------------------------
-% END DOCUMENT
-%---------------------------------------------------
-
+  %---------------------------------------------------
+  % END DOCUMENT
+  %---------------------------------------------------
 \end{document}
